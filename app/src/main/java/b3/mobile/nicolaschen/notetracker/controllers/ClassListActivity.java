@@ -63,14 +63,14 @@ public class ClassListActivity extends AppCompatActivity {
         assessementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Buttons", "Assessment button clicked");
+                Log.d("Buttons", "Assessment button clicked" + bacYear.getId());
             }
         });
 
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Buttons", "Student button clicked");
+                Log.d("Buttons", "Student button clicked" + bacYear.getId());
             }
         });
         return columnForBacYear;
