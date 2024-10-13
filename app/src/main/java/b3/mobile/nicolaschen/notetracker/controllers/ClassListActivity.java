@@ -31,7 +31,7 @@ public class ClassListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 BacYearLab.get(getApplicationContext()).addBacYear(new BacYear());
-                Log.d("Buttons", "Add_BacYear button clicked");
+                Log.d("Buttons", "Add_BacYear button clickeddd");
                 updateUI();
             }
         });
