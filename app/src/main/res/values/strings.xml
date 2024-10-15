@@ -3,4 +3,6 @@
     <string name="add">Ajouter</string>
     <string name="class_title">Classes</string>
     <string name="class_name">Class Name</string>
+    <string name="bac_year_title">Nom de l\'année</string>
+    <string name="bac_year_hint">Entrez le nom de l\'année</string>
 </resources>

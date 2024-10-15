@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
@@ -41,10 +42,10 @@ public class BacYearLab {
                 new String[]{uuidString});
     }
 
-    public BacYear getBacYear(String id) {
+    public BacYear getBacYear(UUID id) {
         NoteCursorWrapper cursor =
                 queryBacYears(NoteDbSchema.BacYearTable.cols.UUID + " = ? ",
-                        new String[]{id}
+                        new String[]{id.toString()}
                 );
         try {
             if (cursor.getCount() == 0)

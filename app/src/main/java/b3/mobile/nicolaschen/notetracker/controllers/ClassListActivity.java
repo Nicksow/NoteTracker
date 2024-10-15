@@ -1,5 +1,6 @@
 package b3.mobile.nicolaschen.notetracker.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,9 +57,18 @@ public class ClassListActivity extends AppCompatActivity {
     private View getBacYearView(final BacYear bacYear) {
         View columnForBacYear = getLayoutInflater().inflate(R.layout.list_item_bac_year, null);
         ((TextView) columnForBacYear.findViewById(R.id.bac_year_text_view)).setText(bacYear.getName());
-
+        TextView bacYearTextView = columnForBacYear.findViewById(R.id.bac_year_text_view);
         ImageButton assessementButton = columnForBacYear.findViewById(R.id.assessment_button);
         ImageButton studentButton = columnForBacYear.findViewById(R.id.student_button);
+
+        bacYearTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+                intent.putExtra(BacYearEditFragment.BacYear_ID, bacYear.getId());
+                startActivity(intent);
+            }
+        });
 
         assessementButton.setOnClickListener(new View.OnClickListener() {
             @Override
