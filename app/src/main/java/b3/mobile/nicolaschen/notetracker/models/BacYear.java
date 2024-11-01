@@ -11,7 +11,6 @@ public class BacYear {
     }
     public BacYear(UUID id) {
         this.mId = id;
-        this.mName = "BAC 0";
     }
 
     public UUID getId() {

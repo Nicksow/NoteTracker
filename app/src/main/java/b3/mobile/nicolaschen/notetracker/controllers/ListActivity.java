@@ -62,7 +62,7 @@ public abstract class ListActivity extends AppCompatActivity {
                 }
             });
         }else if (fragmentType.equals("student")) {
-            titleTextView.setText("Elèves en :" + bacYearName);
+            titleTextView.setText("Elèves en : " + bacYearName);
             actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

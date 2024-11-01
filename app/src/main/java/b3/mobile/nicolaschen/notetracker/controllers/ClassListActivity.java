@@ -61,14 +61,6 @@ public class ClassListActivity extends AppCompatActivity {
         ImageButton assessementButton = columnForBacYear.findViewById(R.id.assessment_button);
         ImageButton studentButton = columnForBacYear.findViewById(R.id.student_button);
 
-        bacYearTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-                intent.putExtra(BacYearEditFragment.BAC_YEAR_ID, bacYear.getId());
-                startActivity(intent);
-            }
-        });
 
         assessementButton.setOnClickListener(new View.OnClickListener() {
             @Override

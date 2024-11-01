@@ -16,6 +16,7 @@ public class BacYearLab {
     public static BacYearLab sBacYearLab;
     private Context mContext;
     private SQLiteDatabase mDatabase;
+    private static int sBacYearCount = 1;
     public static BacYearLab get(Context context) {
         if (sBacYearLab == null) {
             sBacYearLab = new BacYearLab(context);
@@ -29,8 +30,10 @@ public class BacYearLab {
     }
 
     public void addBacYear(BacYear bacYear) {
+        bacYear.setName("BAC " + sBacYearCount);
         mDatabase.insert(NoteDbSchema.BacYearTable.NAME, null,
                 getContentValues(bacYear));
+        sBacYearCount++;
     }
 
     public void updateBacYear(BacYear bacYear) {
