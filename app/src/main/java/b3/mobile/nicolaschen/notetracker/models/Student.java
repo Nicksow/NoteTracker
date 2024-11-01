@@ -4,23 +4,29 @@ import java.util.UUID;
 
 public class Student {
     private UUID mId;
-    private String mFistname;
+    private String mMatricule;
+    private String mFirstname;
     private String mLastname;
     private String mUuidBacYear;
-    private float mGlobalNote;
 
     public Student() {
         this(UUID.randomUUID());
     }
     public Student(UUID id) {
         this.mId = id;
+        this.mMatricule = "la012345";
+        this.mFirstname = "John";
+        this.mLastname = "Doe";
     }
 
     public UUID getId() {
         return mId;
     }
+    public String getMatricule() {
+        return mMatricule;
+    }
     public String getFirstname() {
-        return mFistname;
+        return mFirstname;
     }
     public String getLastname() {
         return mLastname;
@@ -28,14 +34,14 @@ public class Student {
     public String getUuidBacYear() {
         return mUuidBacYear;
     }
-    public float getGlobalNote() {
-        return mGlobalNote;
-    }
     public void setId(UUID id) {
         this.mId = id;
     }
+    public void setMatricule(String matricule) {
+        this.mMatricule = matricule;
+    }
     public void setFirstname(String firstname) {
-        this.mFistname = firstname;
+        this.mFirstname = firstname;
     }
     public void setLastname(String lastname) {
         this.mLastname = lastname;
@@ -43,8 +49,4 @@ public class Student {
     public void setUuidBacYear(String uuidBacYear) {
         this.mUuidBacYear = uuidBacYear;
     }
-    public void setGlobalNote(float GlobalNote) {
-        this.mGlobalNote = GlobalNote;
-    }
-
 }

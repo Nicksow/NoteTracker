@@ -18,7 +18,7 @@ import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 
 public class BacYearEditFragment extends Fragment {
-    public static final String BacYear_ID = "BACYEAR_ID";
+    public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected BacYear mBacYear;
     private EditText mTitleField;
 
@@ -26,7 +26,7 @@ public class BacYearEditFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //bacYear_id est l’identifiant de l’objet BacYear à afficher, passé en extra de l’intent
-        UUID bacYear_id = (UUID) getActivity().getIntent().getSerializableExtra(BacYear_ID);
+        UUID bacYear_id = (UUID) getActivity().getIntent().getSerializableExtra(BAC_YEAR_ID);
         //récupération de l’objet BacYear correspondant à l’identifiant
         mBacYear = BacYearLab.get(getContext()).getBacYear(bacYear_id);
     }
@@ -34,7 +34,7 @@ public class BacYearEditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // inflate the fragment_bac_year view
-        View v = inflater.inflate(R.layout.framgent_edit_bac_year, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_bac_year, container, false);
         // configure the view
         mTitleField = (EditText) v.findViewById(R.id.bac_year_editText);
         mTitleField.setText(mBacYear.getName());

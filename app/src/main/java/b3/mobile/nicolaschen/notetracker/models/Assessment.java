@@ -6,6 +6,8 @@ public class Assessment {
     private UUID mId;
     private String mNoteName;
     private String mUuidBacYear;
+    private String mParentUuid;
+    private Double mNoteMaxValue;
 
     public Assessment() {
         this(UUID.randomUUID());
@@ -23,6 +25,12 @@ public class Assessment {
     public String getUuidBacYear() {
         return mUuidBacYear;
     }
+    public String getParentUuid() {
+        return mParentUuid;
+    }
+    public Double getNoteMaxValue() {
+        return mNoteMaxValue;
+    }
     public void setId(UUID id) {
         this.mId = id;
     }
@@ -31,5 +39,11 @@ public class Assessment {
     }
     public void setUuidBacYear(String uuidBacYear) {
         this.mUuidBacYear = uuidBacYear;
+    }
+    public void setParentUuid(String parentUuid) {
+        this.mParentUuid = parentUuid;
+    }
+    public void setNoteMaxValue(Double noteMaxValue) {
+        this.mNoteMaxValue = noteMaxValue;
     }
 }

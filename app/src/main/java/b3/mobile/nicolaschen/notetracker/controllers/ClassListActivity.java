@@ -26,8 +26,8 @@ public class ClassListActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_class_list);
 
-        mContainer = findViewById(R.id.class_list);
-        mAddButton = findViewById(R.id.add_class_button);
+        mContainer = findViewById(R.id.list_container);
+        mAddButton = findViewById(R.id.add_button);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,7 @@ public class ClassListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-                intent.putExtra(BacYearEditFragment.BacYear_ID, bacYear.getId());
+                intent.putExtra(BacYearEditFragment.BAC_YEAR_ID, bacYear.getId());
                 startActivity(intent);
             }
         });
@@ -74,6 +74,11 @@ public class ClassListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("Buttons", "Assessment button clicked" + bacYear.getId());
+                Intent intent = new Intent(getApplicationContext(), AssessmentActivity.class);
+                intent.putExtra(ListActivity.FRAGMENT_TYPE, "assessment");
+                intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
+                intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
+                startActivity(intent);
             }
         });
 
@@ -81,6 +86,11 @@ public class ClassListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("Buttons", "Student button clicked" + bacYear.getId());
+                Intent intent = new Intent(getApplicationContext(), StudentActivity.class);
+                intent.putExtra(ListActivity.FRAGMENT_TYPE, "student");
+                intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
+                intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
+                startActivity(intent);
             }
         });
         return columnForBacYear;

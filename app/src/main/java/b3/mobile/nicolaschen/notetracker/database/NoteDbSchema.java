@@ -13,10 +13,10 @@ public class NoteDbSchema {
         public static final String NAME = "students";
         public static final class cols {
             public static final String UUID = "id";
+            public static final String MATRICULE = "matricule";
             public static final String FIRST_NAME = "firstName";
             public static final String LAST_NAME = "lastName";
             public static final String UUID_BAC_YEAR = "idBacYear";
-            public static final String GLOBAL_NOTE = "globalNote";
         }
     }
 
@@ -26,36 +26,19 @@ public class NoteDbSchema {
             public static final String UUID = "id";
             public static final String NOTE_NAME = "noteName";
             public static final String UUID_BAC_YEAR = "idBacYear";
+            public static final String PARENT_ID = "parentId";
+            public static final String MAX_NOTE = "maxNote";
         }
     }
 
-    public static final class NoteStudentTable {
-        public static final String NAME = "noteStudents";
+    public static final class NoteTable {
+        public static final String NAME = "notes";
         public static final class cols {
             public static final String UUID = "id";
-            public static final String UUID_STUDENT = "idStudent";
             public static final String UUID_ASSESSMENT = "idAssessment";
-            public static final String NOTE_VALUE = "noteValue";
+            public static final String UUID_STUDENT = "idStudent";
+            public static final String NOTE = "note";
         }
     }
 
-    public static final class SubNoteTable {
-        public static final String NAME = "subNotes";
-        public static final class cols {
-            public static final String UUID = "id";
-            public static final String SUB_NOTE_NAME = "subNoteName";
-            public static final String SUB_NOTE_VALUE = "SubNoteValue";
-            public static final String UUID_NOTE_STUDENT = "idNoteStudent";
-        }
-    }
-
-    public static final class SubSubNoteTable {
-        public static final String NAME = "subSubNotes";
-        public static final class cols {
-            public static final String UUID = "id";
-            public static final String SUB_SUB_NOTE_NAME = "subSubNoteName";
-            public static final String SUB_SUB_NOTE_VALUE = "subSubNoteValue";
-            public static final String UUID_SUB_NOTE = "idSubNote";
-        }
-    }
 }

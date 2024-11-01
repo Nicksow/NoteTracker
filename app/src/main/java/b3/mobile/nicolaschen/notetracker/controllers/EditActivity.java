@@ -19,14 +19,14 @@ public class EditActivity extends AppCompatActivity {
 
         // Fragment management
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        Fragment fragment = fm.findFragmentById(R.id.note_container);
         // If the fragment is not already created, create it
         if(fragment==null) {
             // Create a new fragment
             fragment = new BacYearEditFragment();
             // Add the fragment to the fragment_container
             fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
+                    .add(R.id.note_container, fragment)
                     .commit();
         }
     }
