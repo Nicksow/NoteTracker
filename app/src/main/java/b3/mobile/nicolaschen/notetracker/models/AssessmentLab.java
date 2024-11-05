@@ -59,21 +59,6 @@ public class AssessmentLab {
         }
     }
 
-    public List<Assessment> getAssessments() {
-        ArrayList<Assessment> assessments = new ArrayList<>();
-        NoteCursorWrapper cursor = queryAssessments(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                assessments.add(cursor.getAssessment());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return assessments;
-    }
-
     public List<Assessment> getAssessmentsByBacYear(String bacYearId) {
         ArrayList<Assessment> assessments = new ArrayList<>();
         NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR + " = ?",

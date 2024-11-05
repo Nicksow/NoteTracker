@@ -34,7 +34,6 @@ public class NoteDbSchema {
     public static final class NoteTable {
         public static final String NAME = "notes";
         public static final class cols {
-            public static final String UUID = "id";
             public static final String UUID_ASSESSMENT = "idAssessment";
             public static final String UUID_STUDENT = "idStudent";
             public static final String NOTE = "note";

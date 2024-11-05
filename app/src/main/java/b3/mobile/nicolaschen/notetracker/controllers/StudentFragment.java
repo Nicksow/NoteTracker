@@ -17,7 +17,7 @@ import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 import b3.mobile.nicolaschen.notetracker.models.Student;
 import b3.mobile.nicolaschen.notetracker.models.StudentLab;
 
-public class StudentFragment extends Fragment {
+public class StudentFragment extends Fragment implements UpdatableFragment{
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected BacYear mBacYear;
     private LinearLayout mContainer;

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
@@ -34,29 +33,6 @@ public class StudentLab {
                 getContentValues(student));
     }
 
-    public void updateStudent(Student student) {
-        String uuidString = student.getId().toString();
-        mDatabase.update(NoteDbSchema.StudentTable.NAME,
-                getContentValues(student),
-                NoteDbSchema.StudentTable.cols.UUID + " = ?",
-                new String[]{uuidString});
-    }
-
-    public List<Student> getStudents() {
-        List<Student> students = new ArrayList<>();
-        NoteCursorWrapper cursor = queryStudents(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                students.add(cursor.getStudent());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return students;
-    }
-
     public List<Student> getStudentsByBacYear(String bacYearId) {
         List<Student> students = new ArrayList<>();
         NoteCursorWrapper cursor = queryStudents(NoteDbSchema.StudentTable.cols.UUID_BAC_YEAR + " = ? ",
@@ -72,24 +48,6 @@ public class StudentLab {
             cursor.close();
         }
         return students;
-    }
-
-    public Student getStudent(UUID id) {
-        if (id == null) {
-            return null;
-        }
-        NoteCursorWrapper cursor =
-                queryStudents(NoteDbSchema.StudentTable.cols.UUID + " = ? ",
-                        new String[]{id.toString()}
-                );
-        try {
-            if (cursor.getCount() == 0)
-                return null;
-            cursor.moveToFirst();
-            return cursor.getStudent();
-        } finally {
-            cursor.close();
-        }
     }
 
     private static ContentValues getContentValues(Student student) {

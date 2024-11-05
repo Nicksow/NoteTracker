@@ -67,9 +67,9 @@ public class ClassListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Buttons", "Assessment button clicked" + bacYear.getId());
                 Intent intent = new Intent(getApplicationContext(), AssessmentActivity.class);
-                intent.putExtra(ListActivity.FRAGMENT_TYPE, "assessment");
-                intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
-                intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
+                intent.putExtra(AddListActivity.FRAGMENT_TYPE, "assessment");
+                intent.putExtra(AddListActivity.BAC_YEAR_NAME, bacYear.getName());
+                intent.putExtra(AddListActivity.BAC_YEAR_ID, bacYear.getId());
                 startActivity(intent);
             }
         });
@@ -79,9 +79,9 @@ public class ClassListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Buttons", "Student button clicked" + bacYear.getId());
                 Intent intent = new Intent(getApplicationContext(), StudentActivity.class);
-                intent.putExtra(ListActivity.FRAGMENT_TYPE, "student");
-                intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
-                intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
+                intent.putExtra(AddListActivity.FRAGMENT_TYPE, "student");
+                intent.putExtra(AddListActivity.BAC_YEAR_NAME, bacYear.getName());
+                intent.putExtra(AddListActivity.BAC_YEAR_ID, bacYear.getId());
                 startActivity(intent);
             }
         });

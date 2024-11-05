@@ -17,26 +17,34 @@ public class NoteBaseHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+ BacYearTable.NAME + "("
-                + "_id integer PRIMARY KEY AUTOINCREMENT, " + BacYearTable.cols.UUID + ", "
-                + BacYearTable.cols.NAME + ")"
+        db.execSQL("CREATE TABLE " + BacYearTable.NAME + " ("
+                + BacYearTable.cols.UUID + " TEXT PRIMARY KEY, "
+                + BacYearTable.cols.NAME + " TEXT )"
         );
-        db.execSQL("CREATE TABLE "+ StudentTable.NAME + "("
-                + "_id integer PRIMARY KEY AUTOINCREMENT, " + StudentTable.cols.UUID + ", "
-                + StudentTable.cols.MATRICULE + ", " + StudentTable.cols.FIRST_NAME + ", "
-                + StudentTable.cols.LAST_NAME + ", " + StudentTable.cols.UUID_BAC_YEAR + ")"
+        db.execSQL("CREATE TABLE " + StudentTable.NAME + " ("
+                + StudentTable.cols.UUID + " TEXT PRIMARY KEY, "
+                + StudentTable.cols.MATRICULE + " TEXT , "
+                + StudentTable.cols.FIRST_NAME + " TEXT, "
+                + StudentTable.cols.LAST_NAME + " TEXT , "
+                + StudentTable.cols.UUID_BAC_YEAR + " TEXT, "
+                + "FOREIGN KEY (" + StudentTable.cols.UUID_BAC_YEAR + ") REFERENCES " + BacYearTable.NAME + "(" + BacYearTable.cols.UUID + "))"
         );
-        db.execSQL("CREATE TABLE "+ AssessmentTable.NAME + "("
-                + "_id integer PRIMARY KEY AUTOINCREMENT, " + AssessmentTable.cols.UUID + ", "
-                + AssessmentTable.cols.NOTE_NAME + ", " + AssessmentTable.cols.UUID_BAC_YEAR + ", "
-                + AssessmentTable.cols.PARENT_ID + ", " + AssessmentTable.cols.MAX_NOTE + ")"
+        db.execSQL("CREATE TABLE " + AssessmentTable.NAME + " ("
+                + AssessmentTable.cols.UUID + " TEXT PRIMARY KEY, "
+                + AssessmentTable.cols.NOTE_NAME + " TEXT, "
+                + AssessmentTable.cols.UUID_BAC_YEAR + " TEXT, "
+                + AssessmentTable.cols.PARENT_ID + " TEXT, "  // Allow NULL values
+                + AssessmentTable.cols.MAX_NOTE + " DOUBLE , "
+                + "FOREIGN KEY (" + AssessmentTable.cols.UUID_BAC_YEAR + ") REFERENCES " + BacYearTable.NAME + "(" + BacYearTable.cols.UUID + "), "
+                + "FOREIGN KEY (" + AssessmentTable.cols.PARENT_ID + ") REFERENCES " + AssessmentTable.NAME + "(" + AssessmentTable.cols.UUID + "))"
         );
-        db.execSQL("CREATE TABLE "+ NoteTable.NAME + "("
-                + "_id integer PRIMARY KEY AUTOINCREMENT, " + NoteTable.cols.UUID + ", "
-                + NoteTable.cols.UUID_ASSESSMENT + ", " + NoteTable.cols.UUID_STUDENT + ", "
-                + NoteTable.cols.NOTE + ")"
+        db.execSQL("CREATE TABLE " + NoteTable.NAME + " ("
+                + NoteTable.cols.UUID_ASSESSMENT + " TEXT PRIMARY KEY, "
+                + NoteTable.cols.UUID_STUDENT + " TEXT , "
+                + NoteTable.cols.NOTE + " DOUBLE , "
+                + "FOREIGN KEY (" + NoteTable.cols.UUID_ASSESSMENT + ") REFERENCES " + AssessmentTable.NAME + "(" + AssessmentTable.cols.UUID + "), "
+                + "FOREIGN KEY (" + NoteTable.cols.UUID_STUDENT + ") REFERENCES " + StudentTable.NAME + "(" + StudentTable.cols.UUID + "))"
         );
-
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int
