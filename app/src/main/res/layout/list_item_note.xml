@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:text=".../20"
             android:textAlignment="textEnd"
             android:textSize="16sp" />

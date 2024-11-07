@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers;
+package b3.mobile.nicolaschen.notetracker.controllers.ListActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
+import b3.mobile.nicolaschen.notetracker.controllers.UpdatableFragment;
 
-public abstract class AddListActivity extends AppCompatActivity {
-    public static final String FRAGMENT_TYPE = "FRAGMENT_TYPE";
+public abstract class ListActivity extends AppCompatActivity {
     public static final String BAC_YEAR_NAME = "BACYEAR_NAME";
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected TextView titleTextView;
@@ -27,11 +27,9 @@ public abstract class AddListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_list);
-        // Fragment management
+        setContentView(R.layout.activity_list);
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.list_container);
-        // Determine which fragment to create based on the intent extra
         if (fragment == null) {
             fragment = this.getFragmentList(fm);
             if (fragment != null) {

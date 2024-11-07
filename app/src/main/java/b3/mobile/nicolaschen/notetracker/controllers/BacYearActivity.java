@@ -13,10 +13,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import b3.mobile.nicolaschen.notetracker.R;
+import b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity.AddBackYearActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.AssessmentActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.ListActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.StudentActivity;
 import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 
-public class ClassListActivity extends AppCompatActivity {
+public class BacYearActivity extends AppCompatActivity {
     private LinearLayout mContainer;
     private Button mAddButton;
 
@@ -31,9 +35,8 @@ public class ClassListActivity extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BacYearLab.get(getApplicationContext()).addBacYear(new BacYear());
-                Log.d("Buttons", "Add_BacYear button clicked");
-                updateUI();
+                Intent intent = new Intent(getApplicationContext(), AddBackYearActivity.class);
+                startActivity(intent);
             }
         });
         updateUI();
@@ -57,7 +60,6 @@ public class ClassListActivity extends AppCompatActivity {
     private View getBacYearView(final BacYear bacYear) {
         View columnForBacYear = getLayoutInflater().inflate(R.layout.list_item_bac_year, null);
         ((TextView) columnForBacYear.findViewById(R.id.bac_year_text_view)).setText(bacYear.getName());
-        TextView bacYearTextView = columnForBacYear.findViewById(R.id.bac_year_text_view);
         ImageButton assessementButton = columnForBacYear.findViewById(R.id.assessment_button);
         ImageButton studentButton = columnForBacYear.findViewById(R.id.student_button);
 
@@ -67,9 +69,8 @@ public class ClassListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Buttons", "Assessment button clicked" + bacYear.getId());
                 Intent intent = new Intent(getApplicationContext(), AssessmentActivity.class);
-                intent.putExtra(AddListActivity.FRAGMENT_TYPE, "assessment");
-                intent.putExtra(AddListActivity.BAC_YEAR_NAME, bacYear.getName());
-                intent.putExtra(AddListActivity.BAC_YEAR_ID, bacYear.getId());
+                intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
+                intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
                 startActivity(intent);
             }
         });
@@ -79,9 +80,8 @@ public class ClassListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Buttons", "Student button clicked" + bacYear.getId());
                 Intent intent = new Intent(getApplicationContext(), StudentActivity.class);
-                intent.putExtra(AddListActivity.FRAGMENT_TYPE, "student");
-                intent.putExtra(AddListActivity.BAC_YEAR_NAME, bacYear.getName());
-                intent.putExtra(AddListActivity.BAC_YEAR_ID, bacYear.getId());
+                intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
+                intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
                 startActivity(intent);
             }
         });

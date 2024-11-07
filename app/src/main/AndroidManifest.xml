@@ -13,7 +13,7 @@
         android:theme="@style/Theme.NoteTracker"
         tools:targetApi="31">
         <activity
-            android:name=".controllers.ClassListActivity"
+            android:name=".controllers.BacYearActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.EditActivity"/>
-        <activity android:name=".controllers.AssessmentActivity"/>
-        <activity android:name=".controllers.StudentActivity"/>
+        <activity android:name=".controllers.AddOrEditActivity.AddBackYearActivity"/>
+        <activity android:name=".controllers.AddOrEditActivity.AddAssessmentActivity"/>
+        <activity android:name=".controllers.AddOrEditActivity.AddStudentActivity"/>
+        <activity android:name=".controllers.ListActivity.AssessmentActivity"/>
+        <activity android:name=".controllers.ListActivity.StudentActivity"/>
     </application>
 
 </manifest>

@@ -9,14 +9,15 @@ public class Student {
     private String mLastname;
     private String mUuidBacYear;
 
-    public Student() {
+    public Student(String matricule, String firstname, String lastname, String uuidBacYear) {
         this(UUID.randomUUID());
+        this.mMatricule = matricule;
+        this.mFirstname = firstname;
+        this.mLastname = lastname;
+        this.mUuidBacYear = uuidBacYear;
     }
     public Student(UUID id) {
         this.mId = id;
-        this.mMatricule = "la012345";
-        this.mFirstname = "John";
-        this.mLastname = "Doe";
     }
 
     public UUID getId() {

@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers;
+package b3.mobile.nicolaschen.notetracker.controllers.ListActivity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +12,13 @@ import androidx.fragment.app.Fragment;
 import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
+import b3.mobile.nicolaschen.notetracker.controllers.UpdatableFragment;
 import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 import b3.mobile.nicolaschen.notetracker.models.Student;
 import b3.mobile.nicolaschen.notetracker.models.StudentLab;
 
-public class StudentFragment extends Fragment implements UpdatableFragment{
+public class StudentFragment extends Fragment implements UpdatableFragment {
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected BacYear mBacYear;
     private LinearLayout mContainer;
@@ -57,7 +58,7 @@ public class StudentFragment extends Fragment implements UpdatableFragment{
         TextView nameTextView = columnForStudent.findViewById(R.id.name_textView);
         TextView noteTextView = columnForStudent.findViewById(R.id.note_textView);
         TextView matriculeTextView = columnForStudent.findViewById(R.id.matricule_textView);
-        nameTextView.setText(student.getFirstname() + " " + student.getLastname());
+        nameTextView.setText(student.getLastname() + " " + student.getFirstname());
         matriculeTextView.setText(student.getMatricule());
         noteTextView.setVisibility(View.GONE);
         return columnForStudent;

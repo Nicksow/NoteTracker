@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers;
+package b3.mobile.nicolaschen.notetracker.controllers.ListActivity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +12,13 @@ import androidx.fragment.app.Fragment;
 import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
+import b3.mobile.nicolaschen.notetracker.controllers.UpdatableFragment;
 import b3.mobile.nicolaschen.notetracker.models.Assessment;
 import b3.mobile.nicolaschen.notetracker.models.AssessmentLab;
 import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 
-public class AssessmentFragment extends Fragment implements UpdatableFragment{
+public class AssessmentFragment extends Fragment implements UpdatableFragment {
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected BacYear mBacYear;
     private LinearLayout mContainer;

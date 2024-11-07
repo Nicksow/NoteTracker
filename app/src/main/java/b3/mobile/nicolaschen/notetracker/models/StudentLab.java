@@ -35,9 +35,10 @@ public class StudentLab {
 
     public List<Student> getStudentsByBacYear(String bacYearId) {
         List<Student> students = new ArrayList<>();
-        NoteCursorWrapper cursor = queryStudents(NoteDbSchema.StudentTable.cols.UUID_BAC_YEAR + " = ? ",
-                new String[]{bacYearId}
-        );
+        NoteCursorWrapper cursor = queryStudents(
+                NoteDbSchema.StudentTable.cols.UUID_BAC_YEAR + " = ? ",
+                new String[]{bacYearId},
+                NoteDbSchema.StudentTable.cols.LAST_NAME + " ASC");
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -60,7 +61,7 @@ public class StudentLab {
         return values;
     }
 
-    private NoteCursorWrapper queryStudents(String whereClause, String[] whereArgs) {
+    private NoteCursorWrapper queryStudents(String whereClause, String[] whereArgs,String orderBy) {
         Cursor cursor = mDatabase.query(
                 NoteDbSchema.StudentTable.NAME,
                 null,
@@ -68,7 +69,7 @@ public class StudentLab {
                 whereArgs,
                 null,
                 null,
-                null
+                orderBy
         );
         return new NoteCursorWrapper(cursor);
     }

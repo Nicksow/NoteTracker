@@ -9,8 +9,12 @@ public class Assessment {
     private String mParentUuid;
     private Double mNoteMaxValue;
 
-    public Assessment() {
+    public Assessment(String noteName, String uuidBacYear, String parentUuid, Double noteMaxValue) {
         this(UUID.randomUUID());
+        mNoteName = noteName;
+        mUuidBacYear = uuidBacYear;
+        mParentUuid = parentUuid;
+        mNoteMaxValue = noteMaxValue;
     }
     public Assessment(UUID id) {
         mId = id;

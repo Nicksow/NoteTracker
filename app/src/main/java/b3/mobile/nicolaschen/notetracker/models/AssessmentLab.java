@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
@@ -33,36 +32,12 @@ public class AssessmentLab {
                 getContentValues(assessment));
     }
 
-    public void updateAssessment(Assessment assessment) {
-        String uuidString = assessment.getId().toString();
-        mDatabase.update(NoteDbSchema.AssessmentTable.NAME,
-                getContentValues(assessment),
-                NoteDbSchema.AssessmentTable.cols.UUID + " = ?",
-                new String[]{uuidString});
-    }
 
-    public Assessment getAssessment(UUID id) {
-        if (id == null) {
-            return null;
-        }
-        NoteCursorWrapper cursor =
-                queryAssessments(NoteDbSchema.AssessmentTable.cols.UUID + " = ? ",
-                        new String[]{id.toString()}
-                );
-        try {
-            if (cursor.getCount() == 0)
-                return null;
-            cursor.moveToFirst();
-            return cursor.getAssessment();
-        } finally {
-            cursor.close();
-        }
-    }
 
     public List<Assessment> getAssessmentsByBacYear(String bacYearId) {
         ArrayList<Assessment> assessments = new ArrayList<>();
         NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR + " = ?",
-                new String[]{bacYearId});
+                new String[]{bacYearId},NoteDbSchema.AssessmentTable.cols.NOTE_NAME + " ASC");
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -85,7 +60,7 @@ public class AssessmentLab {
         return values;
     }
 
-    public NoteCursorWrapper queryAssessments(String whereClause, String[] whereArgs) {
+    public NoteCursorWrapper queryAssessments(String whereClause, String[] whereArgs, String orderBy) {
         return new NoteCursorWrapper(mDatabase.query(
                 NoteDbSchema.AssessmentTable.NAME,
                 null,
@@ -93,7 +68,7 @@ public class AssessmentLab {
                 whereArgs,
                 null,
                 null,
-                null
+                orderBy
         ));
     }
 }

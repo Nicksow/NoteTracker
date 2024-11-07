@@ -16,7 +16,6 @@ public class BacYearLab {
     public static BacYearLab sBacYearLab;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    private static int sBacYearCount = 1;
     public static BacYearLab get(Context context) {
         if (sBacYearLab == null) {
             sBacYearLab = new BacYearLab(context);
@@ -30,26 +29,14 @@ public class BacYearLab {
     }
 
     public void addBacYear(BacYear bacYear) {
-        bacYear.setName("BAC " + sBacYearCount);
         mDatabase.insert(NoteDbSchema.BacYearTable.NAME, null,
                 getContentValues(bacYear));
-        sBacYearCount++;
-    }
-
-    public void updateBacYear(BacYear bacYear) {
-        String uuidString = bacYear.getId().toString();
-        ContentValues values = getContentValues(bacYear);
-        mDatabase.update(NoteDbSchema.BacYearTable.NAME,
-                values,
-                NoteDbSchema.BacYearTable.cols.UUID + " = ?",
-                new String[]{uuidString});
     }
 
     public BacYear getBacYear(UUID id) {
         NoteCursorWrapper cursor =
                 queryBacYears(NoteDbSchema.BacYearTable.cols.UUID + " = ? ",
-                        new String[]{id.toString()}
-                );
+                        new String[]{id.toString(),}, null);
         try {
             if (cursor.getCount() == 0)
                 return null;
@@ -62,7 +49,7 @@ public class BacYearLab {
 
     public List<BacYear> getBacYears() {
         ArrayList<BacYear> bacYears = new ArrayList<>();
-        NoteCursorWrapper cursor = queryBacYears(null, null);
+        NoteCursorWrapper cursor = queryBacYears(null, null,NoteDbSchema.BacYearTable.cols.NAME + " ASC");
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -82,7 +69,7 @@ public class BacYearLab {
         return values;
     }
 
-    private NoteCursorWrapper queryBacYears(String whereClause, String[] whereArgs) {
+    private NoteCursorWrapper queryBacYears(String whereClause, String[] whereArgs, String orderBy) {
         return new NoteCursorWrapper(mDatabase.query(
                 NoteDbSchema.BacYearTable.NAME,
                 null,
@@ -90,7 +77,7 @@ public class BacYearLab {
                 whereArgs,
                 null,
                 null,
-                null
+                orderBy
         ));
     }
 

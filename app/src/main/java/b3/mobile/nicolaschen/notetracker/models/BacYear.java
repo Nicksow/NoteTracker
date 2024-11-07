@@ -6,8 +6,9 @@ public class BacYear {
     private UUID mId;
     private String mName;
 
-    public BacYear() {
+    public BacYear(String name) {
         this(UUID.randomUUID());
+        this.mName = name;
     }
     public BacYear(UUID id) {
         this.mId = id;
