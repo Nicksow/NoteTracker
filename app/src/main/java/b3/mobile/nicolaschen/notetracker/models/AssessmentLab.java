@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
@@ -36,8 +37,12 @@ public class AssessmentLab {
 
     public List<Assessment> getAssessmentsByBacYear(String bacYearId) {
         ArrayList<Assessment> assessments = new ArrayList<>();
-        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR + " = ?",
-                new String[]{bacYearId},NoteDbSchema.AssessmentTable.cols.NOTE_NAME + " ASC");
+        NoteCursorWrapper cursor = queryAssessments(
+                NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR + " = ? AND " +
+                        NoteDbSchema.AssessmentTable.cols.PARENT_ID + " IS NULL",
+                new String[]{bacYearId},
+                NoteDbSchema.AssessmentTable.cols.NOTE_NAME + " ASC"
+        );
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -70,5 +75,55 @@ public class AssessmentLab {
                 null,
                 orderBy
         ));
+    }
+
+
+    public List<Assessment> getAssessmentsByParentId(String parentId) {
+        ArrayList<Assessment> assessments = new ArrayList<>();
+        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.PARENT_ID + " = ?",
+                new String[]{parentId},NoteDbSchema.AssessmentTable.cols.NOTE_NAME + " ASC");
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                assessments.add(cursor.getAssessment());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return assessments;
+    }
+
+    public Assessment getAssessment(UUID assessmentId) {
+        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.UUID + " = ?",
+                new String[]{assessmentId.toString()},null);
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getAssessment();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public Assessment[] getSubAssessments(String bacYear, String mParentId) {
+        ArrayList<Assessment> assessments = new ArrayList<>();
+        NoteCursorWrapper cursor = queryAssessments(
+                NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR + " = ? AND " +
+                        NoteDbSchema.AssessmentTable.cols.PARENT_ID + " = ?",
+                new String[]{bacYear, mParentId},null
+        );
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                assessments.add(cursor.getAssessment());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return assessments.toArray(new Assessment[assessments.size()]);
     }
 }

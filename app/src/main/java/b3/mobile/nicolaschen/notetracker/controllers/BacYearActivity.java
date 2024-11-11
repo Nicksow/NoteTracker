@@ -13,7 +13,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import b3.mobile.nicolaschen.notetracker.R;
-import b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity.AddBackYearActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBackYearActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.AssessmentActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.ListActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.StudentActivity;
@@ -23,14 +23,17 @@ import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 public class BacYearActivity extends AppCompatActivity {
     private LinearLayout mContainer;
     private Button mAddButton;
+    private TextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_class_list);
+        setContentView(R.layout.activity_list);
 
         mContainer = findViewById(R.id.list_container);
+        mTitle = findViewById(R.id.activity_textview);
+        mTitle.setText("Classes");
         mAddButton = findViewById(R.id.add_button);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override

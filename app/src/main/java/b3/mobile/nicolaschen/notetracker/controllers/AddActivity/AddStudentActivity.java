@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity;
+package b3.mobile.nicolaschen.notetracker.controllers.AddActivity;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
 
-public class AddStudentActivity extends AddOrEditActivity {
+public class AddStudentActivity extends AddActivity {
 
     @Override
     protected void onAddButtonClick(UUID bacYearId) {

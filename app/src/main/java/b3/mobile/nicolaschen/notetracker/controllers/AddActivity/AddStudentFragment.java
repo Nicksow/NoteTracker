@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity;
+package b3.mobile.nicolaschen.notetracker.controllers.AddActivity;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -29,21 +29,21 @@ public class AddStudentFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.list_item_textfield, container, false);
+        View v = inflater.inflate(R.layout.list_item_student_textfield, container, false);
         mContainer = getActivity().findViewById(R.id.fragment_container);
         mMatriculeField = v.findViewById(R.id.matricule_textfield);
-        mNameField = v.findViewById(R.id.name_textfield);
-        mFirstNameField = v.findViewById(R.id.firstname_textfield);
+        mNameField = v.findViewById(R.id.assessmentName_textfield);
+        mFirstNameField = v.findViewById(R.id.maxNote_textfield);
         mContainer = getActivity().findViewById(R.id.fragment_container);
         return v;
     }
 
     public void addElement() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View newView = inflater.inflate(R.layout.list_item_textfield, mContainer, false);
+        View newView = inflater.inflate(R.layout.list_item_student_textfield, mContainer, false);
         mMatriculeField = newView.findViewById(R.id.matricule_textfield);
-        mNameField = newView.findViewById(R.id.name_textfield);
-        mFirstNameField = newView.findViewById(R.id.firstname_textfield);
+        mNameField = newView.findViewById(R.id.assessmentName_textfield);
+        mFirstNameField = newView.findViewById(R.id.maxNote_textfield);
         mContainer.addView(newView);
     }
 
@@ -51,8 +51,8 @@ public class AddStudentFragment extends Fragment {
         int childCount = mContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childView = mContainer.getChildAt(i);
-            mNameField = childView.findViewById(R.id.name_textfield);
-            mFirstNameField = childView.findViewById(R.id.firstname_textfield);
+            mNameField = childView.findViewById(R.id.assessmentName_textfield);
+            mFirstNameField = childView.findViewById(R.id.maxNote_textfield);
             mMatriculeField = childView.findViewById(R.id.matricule_textfield);
             String name = mNameField.getText().toString();
             String firstname = mFirstNameField.getText().toString();

@@ -4,15 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
 import b3.mobile.nicolaschen.notetracker.database.NoteDbSchema;
 
-//TODO : Créer la jointure entre Student,Assessment et Note
 
 public class NoteLab {
     public static NoteLab sNoteLab;
@@ -32,8 +31,7 @@ public class NoteLab {
     }
 
     public void addNote(Note note) {
-        ContentValues values = getContentValues(note);
-        mDatabase.insert(NoteDbSchema.NoteTable.NAME, null, values);
+        mDatabase.insert(NoteDbSchema.NoteTable.NAME, null, getContentValues(note));
     }
 
     private static ContentValues getContentValues(Note note) {
@@ -42,21 +40,6 @@ public class NoteLab {
         values.put(NoteDbSchema.NoteTable.cols.UUID_STUDENT, note.getStudentUuid());
         values.put(NoteDbSchema.NoteTable.cols.NOTE, note.getNoteValue());
         return values;
-    }
-
-    public List<Note> getNotes() {
-        List<Note> notes = new ArrayList<>();
-        NoteCursorWrapper cursor = queryNotes(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                notes.add(cursor.getNote());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return notes;
     }
 
     private NoteCursorWrapper queryNotes(String whereClause, String[] whereArgs) {
@@ -70,6 +53,24 @@ public class NoteLab {
                 null
         );
         return new NoteCursorWrapper(cursor);
+    }
+
+    public Note getNoteByStudentAndAssessment(String AssessmentId, String studentId) {
+        NoteCursorWrapper cursor = queryNotes(
+                NoteDbSchema.NoteTable.cols.UUID_ASSESSMENT + " = ? AND " +
+                        NoteDbSchema.NoteTable.cols.UUID_STUDENT + " = ?",
+                new String[]{AssessmentId, studentId}
+        );
+        try {
+            Log.d("NoteLab", "getNoteByStudentAndAssessment: " + cursor.getCount());
+            Log.d("NoteLab", "getNoteByStudentAndAssessment: " + AssessmentId + " " + studentId);
+            if (cursor.getCount() == 0)
+                return null;
+            cursor.moveToFirst();
+            return cursor.getNote();
+        } finally {
+            cursor.close();
+        }
     }
 
 }

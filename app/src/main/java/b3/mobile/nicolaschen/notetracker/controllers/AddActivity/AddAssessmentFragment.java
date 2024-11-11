@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity;
+package b3.mobile.nicolaschen.notetracker.controllers.AddActivity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import b3.mobile.nicolaschen.notetracker.R;
-import b3.mobile.nicolaschen.notetracker.models.BacYear;
-import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
+import b3.mobile.nicolaschen.notetracker.models.Assessment;
+import b3.mobile.nicolaschen.notetracker.models.AssessmentLab;
 
-public class AddBackYearFragment extends Fragment {
+public class AddAssessmentFragment extends Fragment {
     private LinearLayout mContainer;
     private EditText mMatriculeField;
     private EditText mNameField;
@@ -27,11 +27,11 @@ public class AddBackYearFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.list_item_textfield, container, false);
+        View v = inflater.inflate(R.layout.list_item_student_textfield, container, false);
         mContainer = getActivity().findViewById(R.id.fragment_container);
         mMatriculeField = v.findViewById(R.id.matricule_textfield);
-        mNameField = v.findViewById(R.id.name_textfield);
-        mFirstNameField = v.findViewById(R.id.firstname_textfield);
+        mNameField = v.findViewById(R.id.assessmentName_textfield);
+        mFirstNameField = v.findViewById(R.id.maxNote_textfield);
         mMatriculeField.setVisibility(View.GONE);
         mFirstNameField.setVisibility(View.GONE);
         mContainer = getActivity().findViewById(R.id.fragment_container);
@@ -40,27 +40,27 @@ public class AddBackYearFragment extends Fragment {
 
     public void addElement() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View newView = inflater.inflate(R.layout.list_item_textfield, mContainer, false);
+        View newView = inflater.inflate(R.layout.list_item_student_textfield, mContainer, false);
         mMatriculeField = newView.findViewById(R.id.matricule_textfield);
-        mNameField = newView.findViewById(R.id.name_textfield);
-        mFirstNameField = newView.findViewById(R.id.firstname_textfield);
+        mNameField = newView.findViewById(R.id.assessmentName_textfield);
+        mFirstNameField = newView.findViewById(R.id.maxNote_textfield);
         mMatriculeField.setVisibility(View.GONE);
         mFirstNameField.setVisibility(View.GONE);
         mContainer.addView(newView);
     }
 
-    public void confirm() {
+    public void confirm(String bacYearId) {
         int childCount = mContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childView = mContainer.getChildAt(i);
-            mNameField = childView.findViewById(R.id.name_textfield);
+            mNameField = childView.findViewById(R.id.assessmentName_textfield);
             String name = mNameField.getText().toString();
             if (name.isEmpty()) {
                 Toast.makeText(getContext(), "Tous les champs doivent être remplis.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            BacYear bacYear = new BacYear(name);
-            BacYearLab.get(getContext()).addBacYear(bacYear);
+            Assessment assessment = new Assessment(name,bacYearId,null,20.0);
+            AssessmentLab.get(getContext()).addAssessment(assessment);
         }
         getActivity().finish();
     }

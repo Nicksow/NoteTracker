@@ -6,4 +6,5 @@
     <string name="bac_year_title">Nom de l\'année</string>
     <string name="bac_year_hint">Entrez le nom de l\'année</string>
     <string name="activity_title">Activity Title</string>
+    <string name="Assessment">Evaluation</string>
 </resources>

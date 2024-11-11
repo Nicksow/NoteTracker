@@ -21,11 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.AddOrEditActivity.AddBackYearActivity"/>
-        <activity android:name=".controllers.AddOrEditActivity.AddAssessmentActivity"/>
-        <activity android:name=".controllers.AddOrEditActivity.AddStudentActivity"/>
+        <activity android:name=".controllers.AddActivity.AddBackYearActivity"/>
+        <activity android:name=".controllers.AddActivity.AddAssessmentActivity"/>
+        <activity android:name=".controllers.AddActivity.AddStudentActivity"/>
+        <activity android:name=".controllers.AddActivity.AddSubAssessmentActivity"/>
         <activity android:name=".controllers.ListActivity.AssessmentActivity"/>
         <activity android:name=".controllers.ListActivity.StudentActivity"/>
+        <activity android:name=".controllers.ListActivity.EditAssessmentActivity"/>
+        <activity android:name=".controllers.DetailedAssessmentActivity"/>
     </application>
 
 </manifest>

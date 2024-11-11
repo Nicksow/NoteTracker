@@ -1,5 +1,6 @@
 package b3.mobile.nicolaschen.notetracker.controllers.ListActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
+import b3.mobile.nicolaschen.notetracker.controllers.DetailedAssessmentActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.UpdatableFragment;
 import b3.mobile.nicolaschen.notetracker.models.Assessment;
 import b3.mobile.nicolaschen.notetracker.models.AssessmentLab;
@@ -47,9 +49,11 @@ public class AssessmentFragment extends Fragment implements UpdatableFragment {
     public void updateUI() {
         mContainer.removeAllViews();
         AssessmentLab lab = AssessmentLab.get(getContext());
-        for (final Assessment assessment : lab.getAssessmentsByBacYear((mBacYear.getId().toString()))) {
-            View assessmentView = getAssessmentView(assessment);
-            mContainer.addView(assessmentView);
+        for (final Assessment assessment : lab.getAssessmentsByBacYear(mBacYear.getId().toString())) {
+            if (assessment.getNoteName() != null) {
+                View assessmentView = getAssessmentView(assessment);
+                mContainer.addView(assessmentView);
+            }
         }
     }
 
@@ -61,6 +65,16 @@ public class AssessmentFragment extends Fragment implements UpdatableFragment {
         nameTextView.setText(assessment.getNoteName());
         noteTextView.setVisibility(View.GONE);
         matriculeTextView.setVisibility(View.GONE);
+        setClickOnAssessmentView(assessment,columnForAssessment);
         return columnForAssessment;
+    }
+
+    private void setClickOnAssessmentView(final Assessment assessment, View columnForAssessment) {
+        columnForAssessment.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), DetailedAssessmentActivity.class);
+            intent.putExtra(DetailedAssessmentActivity.ASSESSMENT_ID, assessment.getId());
+            intent.putExtra(DetailedAssessmentActivity.BAC_YEAR_ID, mBacYear.getId());
+            startActivity(intent);
+        });
     }
 }

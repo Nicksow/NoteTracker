@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
@@ -73,4 +74,5 @@ public class StudentLab {
         );
         return new NoteCursorWrapper(cursor);
     }
+
 }

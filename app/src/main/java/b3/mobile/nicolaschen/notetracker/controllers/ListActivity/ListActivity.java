@@ -49,7 +49,7 @@ public abstract class ListActivity extends AppCompatActivity {
 
     protected abstract void onActionButtonClick(UUID bacYearId);
 
-    protected abstract String getTitleText(String bacYearName);
+    protected abstract String getTitleText(String Name);
 
     protected abstract Fragment getFragmentList(FragmentManager fm);
 

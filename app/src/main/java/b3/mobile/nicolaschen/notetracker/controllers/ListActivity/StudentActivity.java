@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.UUID;
 
-import b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity.AddBackYearActivity;
-import b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity.AddStudentActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBackYearActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddStudentActivity;
 
 public class StudentActivity extends ListActivity {
 

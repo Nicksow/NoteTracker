@@ -7,6 +7,11 @@ public class Note {
     private String mStudentUuid;
     private Double mNoteValue;
 
+    public Note(String assessmentUuid, String studentUuid) {
+        mAssessmentUuid = assessmentUuid;
+        mStudentUuid = studentUuid;
+        mNoteValue = 0.0;
+    }
 
     public String getAssessmentUuid() {
         return mAssessmentUuid;

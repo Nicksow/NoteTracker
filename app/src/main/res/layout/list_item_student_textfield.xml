@@ -22,7 +22,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/name_textfield"
+            android:id="@+id/assessmentName_textfield"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +30,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/firstname_textfield"
+            android:id="@+id/maxNote_textfield"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

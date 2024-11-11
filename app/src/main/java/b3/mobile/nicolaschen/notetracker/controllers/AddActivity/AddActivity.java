@@ -1,4 +1,4 @@
-package b3.mobile.nicolaschen.notetracker.controllers.AddOrEditActivity;
+package b3.mobile.nicolaschen.notetracker.controllers.AddActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
 
-public abstract class AddOrEditActivity extends AppCompatActivity {
+public abstract class AddActivity extends AppCompatActivity {
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected Button mAddElementButton;
     protected Button mConfirmButton;
@@ -23,7 +23,7 @@ public abstract class AddOrEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_or_edit);
+        setContentView(R.layout.activity_add);
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
