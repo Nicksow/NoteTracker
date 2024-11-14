@@ -8,13 +8,15 @@ public class Assessment {
     private String mUuidBacYear;
     private String mParentUuid;
     private Double mNoteMaxValue;
+    private Boolean mIsSubAssessment;
 
-    public Assessment(String noteName, String uuidBacYear, String parentUuid, Double noteMaxValue) {
+    public Assessment(String noteName, String uuidBacYear, String parentUuid, Double noteMaxValue, Boolean isSubAssessment) {
         this(UUID.randomUUID());
         mNoteName = noteName;
         mUuidBacYear = uuidBacYear;
         mParentUuid = parentUuid;
         mNoteMaxValue = noteMaxValue;
+        mIsSubAssessment = isSubAssessment;
     }
     public Assessment(UUID id) {
         mId = id;
@@ -35,6 +37,9 @@ public class Assessment {
     public Double getNoteMaxValue() {
         return mNoteMaxValue;
     }
+    public Boolean getIsSubAssessment() {
+        return mIsSubAssessment;
+    }
     public void setId(UUID id) {
         this.mId = id;
     }
@@ -49,5 +54,8 @@ public class Assessment {
     }
     public void setNoteMaxValue(Double noteMaxValue) {
         this.mNoteMaxValue = noteMaxValue;
+    }
+    public void setIsSubAssessment(Boolean isSubAssessment) {
+        this.mIsSubAssessment = isSubAssessment;
     }
 }

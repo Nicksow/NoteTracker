@@ -29,6 +29,7 @@
         <activity android:name=".controllers.ListActivity.StudentActivity"/>
         <activity android:name=".controllers.ListActivity.EditAssessmentActivity"/>
         <activity android:name=".controllers.DetailedAssessmentActivity"/>
+        <activity android:name=".controllers.DetailedStudentNoteActivity"/>
     </application>
 
 </manifest>

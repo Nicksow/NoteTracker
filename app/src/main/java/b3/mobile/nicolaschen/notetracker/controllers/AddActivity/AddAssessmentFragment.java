@@ -59,7 +59,7 @@ public class AddAssessmentFragment extends Fragment {
                 Toast.makeText(getContext(), "Tous les champs doivent être remplis.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Assessment assessment = new Assessment(name,bacYearId,null,20.0);
+            Assessment assessment = new Assessment(name,bacYearId,null,20.0,false);
             AssessmentLab.get(getContext()).addAssessment(assessment);
         }
         getActivity().finish();

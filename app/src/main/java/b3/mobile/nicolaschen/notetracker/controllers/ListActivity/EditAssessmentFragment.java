@@ -51,40 +51,27 @@ public class EditAssessmentFragment extends Fragment implements UpdatableFragmen
     }
 
     public void updateUI() {
-        AssessmentLab lab = AssessmentLab.get(getContext());
         mContainer.removeAllViews();
-        for (Assessment subAssessment : lab.getSubAssessments(mBacYear.getId().toString(), mParentId)) {
-            if (subAssessment.getNoteName() != null) {
-                mContainer.addView(getSubAssessmentView(subAssessment));
-            }
-            for (Assessment subSubAssessment : lab.getSubAssessments(mBacYear.getId().toString(), subAssessment.getId().toString())) {
-                if (subSubAssessment.getNoteName() != null) {
-                    mContainer.addView(getSubSubAssessmentView(subSubAssessment));
-                }
-            }
+        addAssessmentViews(mParentId, 0);
+    }
+
+    private void addAssessmentViews(String parentId, int leftMargin) {
+        AssessmentLab lab = AssessmentLab.get(getContext());
+        for (Assessment assessment : lab.getSubAssessments(mBacYear.getId().toString(), parentId)) {
+            View assessmentView = getAssessmentView(assessment, leftMargin);
+            mContainer.addView(assessmentView);
+            addAssessmentViews(assessment.getId().toString(), leftMargin + 64);
         }
     }
 
-    private View getSubSubAssessmentView(final Assessment subAssessment) {
+    private View getAssessmentView(final Assessment assessment, int leftMargin) {
         View assessmentView = getLayoutInflater().inflate(R.layout.list_item_note, null);
         TextView assessmentName = assessmentView.findViewById(R.id.name_textView);
         TextView assessmentNote = assessmentView.findViewById(R.id.note_textView);
-        TextView matricule = assessmentView.findViewById(R.id.matricule_textView);
-        assessmentName.setText(subAssessment.getNoteName());
-        assessmentNote.setText(subAssessment.getNoteMaxValue().toString());
-        setLeftMargin(assessmentView.findViewById(R.id.name_note_container), 64);
-        matricule.setVisibility(View.GONE);
-        return assessmentView;
-    }
-
-    private View getSubAssessmentView(final Assessment assessment) {
-        View assessmentView = getLayoutInflater().inflate(R.layout.list_item_note, null);
-        TextView assessmentName = assessmentView.findViewById(R.id.name_textView);
-        TextView assessmentNote = assessmentView.findViewById(R.id.note_textView);
-        TextView matricule = assessmentView.findViewById(R.id.matricule_textView);
+        assessmentView.findViewById(R.id.matricule_textView).setVisibility(View.GONE);
         assessmentName.setText(assessment.getNoteName());
         assessmentNote.setText(assessment.getNoteMaxValue().toString());
-        matricule.setVisibility(View.GONE);
+        setLeftMargin(assessmentView.findViewById(R.id.name_note_container), leftMargin);
         return assessmentView;
     }
 

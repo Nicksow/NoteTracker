@@ -34,6 +34,23 @@ public class StudentLab {
                 getContentValues(student));
     }
 
+    public Student getStudent(UUID studentId) {
+        NoteCursorWrapper cursor = queryStudents(
+                NoteDbSchema.StudentTable.cols.UUID + " = ? ",
+                new String[]{studentId.toString()},
+                null
+        );
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getStudent();
+        } finally {
+            cursor.close();
+        }
+    }
+
     public List<Student> getStudentsByBacYear(String bacYearId) {
         List<Student> students = new ArrayList<>();
         NoteCursorWrapper cursor = queryStudents(

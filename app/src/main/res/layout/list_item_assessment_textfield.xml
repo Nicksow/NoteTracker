@@ -10,31 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/assessmentName_textfield"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/assessmentName_textfield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="nom"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/maxNote_textfield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="note max"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_subAssessment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="nom"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/maxNote_textfield"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="note max"
-            android:inputType="text" />
-
+            android:layout_weight="1"
+            android:text="Ajouter une sous-evaluation" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/add_subAssessment_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Ajouter une sous-evaluation" />
 
 </LinearLayout>

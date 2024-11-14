@@ -43,11 +43,13 @@ public class NoteCursorWrapper extends CursorWrapper {
         String uuidBacYear = getString(getColumnIndex(NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR));
         String parentId = getString(getColumnIndex(NoteDbSchema.AssessmentTable.cols.PARENT_ID));
         Double maxNote = getDouble(getColumnIndex(NoteDbSchema.AssessmentTable.cols.MAX_NOTE));
+        Boolean subAssessment = getInt(getColumnIndex(NoteDbSchema.AssessmentTable.cols.SUB_ASSESSMENT)) == 1;
         Assessment assessment = new Assessment(UUID.fromString(uuidString));
         assessment.setNoteName(noteName);
         assessment.setUuidBacYear(uuidBacYear);
         assessment.setParentUuid(parentId);
         assessment.setNoteMaxValue(maxNote);
+        assessment.setIsSubAssessment(subAssessment);
         return assessment;
     }
 

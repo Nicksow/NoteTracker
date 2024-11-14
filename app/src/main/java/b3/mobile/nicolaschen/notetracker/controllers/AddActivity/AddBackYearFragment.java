@@ -1,5 +1,6 @@
 package b3.mobile.nicolaschen.notetracker.controllers.AddActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class AddBackYearFragment extends Fragment {
         mMatriculeField = v.findViewById(R.id.matricule_textfield);
         mNameField = v.findViewById(R.id.assessmentName_textfield);
         mFirstNameField = v.findViewById(R.id.maxNote_textfield);
+        mNameField.setHint("Nom de l'année");
         mMatriculeField.setVisibility(View.GONE);
         mFirstNameField.setVisibility(View.GONE);
         mContainer = getActivity().findViewById(R.id.fragment_container);

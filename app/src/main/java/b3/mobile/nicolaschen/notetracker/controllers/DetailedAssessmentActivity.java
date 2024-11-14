@@ -2,6 +2,7 @@ package b3.mobile.nicolaschen.notetracker.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -79,17 +80,13 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
     }
 
     private Note getOrCreateNoteForStudent(Student student) {
-        List<Assessment> assessments = AssessmentLab.get(this.getApplicationContext()).getAssessmentsByParentId(mAssessmentId);
-        for (Assessment assessment : assessments) {
-            Note note = NoteLab.get(this.getApplicationContext()).getNoteByStudentAndAssessment(assessment.getId().toString(), student.getId().toString());
-            if (note != null) {
-                return note;
-            }
+        Note note = NoteLab.get(this.getApplicationContext()).getNoteByStudentAndAssessment(mAssessment.getId().toString(), student.getId().toString());
+        if (note != null) {
+            return note;
         }
-        Assessment newAssessment = new Assessment(null, mBacYearId, mAssessmentId, 20.0);
-        AssessmentLab.get(this.getApplicationContext()).addAssessment(newAssessment);
-        Note newNote = new Note(newAssessment.getId().toString(), student.getId().toString());
+        Note newNote = new Note(mAssessment.getId().toString(), student.getId().toString());
         NoteLab.get(this.getApplicationContext()).addNote(newNote);
+        Log.d("test", "getOrCreateNoteForStudent: " + newNote.getAssessmentUuid()+ "for student" + student.getLastname());
         return newNote;
     }
 
@@ -100,9 +97,13 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
         TextView matriculeTextView = columnForAssessment.findViewById(R.id.matricule_textView);
         nameTextView.setText(student.getLastname() +" "+ student.getFirstname());
         matriculeTextView.setText(student.getMatricule());
-        noteTextView.setText(String.valueOf(note.getNoteValue()));
+        noteTextView.setText(note.getNoteValue()+"/"+mAssessment.getNoteMaxValue().intValue());
         columnForAssessment.setOnClickListener(view -> {
-            // Open the DetailedStudentActivity
+            Intent intent = new Intent(getApplicationContext(), DetailedStudentNoteActivity.class);
+            intent.putExtra(DetailedStudentNoteActivity.STUDENT_ID, student.getId());
+            intent.putExtra(DetailedStudentNoteActivity.ASSESSMENT_ID, mAssessment.getId());
+            intent.putExtra(DetailedStudentNoteActivity.BAC_YEAR_ID, mBacYear.getId());
+            startActivity(intent);
         });
         return columnForAssessment;
     }

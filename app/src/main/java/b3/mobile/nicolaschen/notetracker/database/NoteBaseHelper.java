@@ -35,13 +35,15 @@ public class NoteBaseHelper extends SQLiteOpenHelper {
                 + AssessmentTable.cols.UUID_BAC_YEAR + " TEXT, "
                 + AssessmentTable.cols.PARENT_ID + " TEXT, "  // Allow NULL values
                 + AssessmentTable.cols.MAX_NOTE + " DOUBLE , "
+                + AssessmentTable.cols.SUB_ASSESSMENT + " INTEGER , "
                 + "FOREIGN KEY (" + AssessmentTable.cols.UUID_BAC_YEAR + ") REFERENCES " + BacYearTable.NAME + "(" + BacYearTable.cols.UUID + "), "
                 + "FOREIGN KEY (" + AssessmentTable.cols.PARENT_ID + ") REFERENCES " + AssessmentTable.NAME + "(" + AssessmentTable.cols.UUID + "))"
         );
         db.execSQL("CREATE TABLE " + NoteTable.NAME + " ("
-                + NoteTable.cols.UUID_ASSESSMENT + " TEXT PRIMARY KEY, "
+                + NoteTable.cols.UUID_ASSESSMENT + " TEXT, "
                 + NoteTable.cols.UUID_STUDENT + " TEXT , "
                 + NoteTable.cols.NOTE + " DOUBLE , "
+                + "PRIMARY KEY (" + NoteTable.cols.UUID_ASSESSMENT + ", " + NoteTable.cols.UUID_STUDENT + "), "
                 + "FOREIGN KEY (" + NoteTable.cols.UUID_ASSESSMENT + ") REFERENCES " + AssessmentTable.NAME + "(" + AssessmentTable.cols.UUID + "), "
                 + "FOREIGN KEY (" + NoteTable.cols.UUID_STUDENT + ") REFERENCES " + StudentTable.NAME + "(" + StudentTable.cols.UUID + "))"
         );

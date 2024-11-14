@@ -19,7 +19,7 @@ public abstract class ListActivity extends AppCompatActivity {
     public static final String BAC_YEAR_NAME = "BACYEAR_NAME";
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
     protected TextView titleTextView;
-    protected Button actionButton;
+    protected Button addButton;
     protected String bacYearName;
     protected UUID bacYearId;
 
@@ -39,11 +39,11 @@ public abstract class ListActivity extends AppCompatActivity {
             }
         }
         titleTextView = findViewById(R.id.activity_textview);
-        actionButton = findViewById(R.id.add_button);
+        addButton = findViewById(R.id.add_button);
         bacYearName = getIntent().getStringExtra(BAC_YEAR_NAME);
         bacYearId = (UUID) getIntent().getSerializableExtra(BAC_YEAR_ID);
         titleTextView.setText(this.getTitleText(bacYearName));
-        actionButton.setOnClickListener((View view) -> this.onActionButtonClick(bacYearId));
+        addButton.setOnClickListener((View view) -> this.onActionButtonClick(bacYearId));
 
     }
 

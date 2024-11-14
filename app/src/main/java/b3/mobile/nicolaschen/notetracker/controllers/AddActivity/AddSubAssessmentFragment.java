@@ -40,26 +40,29 @@ public class AddSubAssessmentFragment extends Fragment {
         mNoteField = v.findViewById(R.id.maxNote_textfield);
         mNameField = v.findViewById(R.id.assessmentName_textfield);
         mAddSubButton = v.findViewById(R.id.add_subAssessment_button);
-        mAddSubButton.setOnClickListener(view -> {
-            int index = mContainer.indexOfChild((View) view.getParent());
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View newView = inflater.inflate(R.layout.list_item_assessment_textfield, mContainer, false);
-            newView.findViewById(R.id.add_subAssessment_button).setVisibility(View.GONE);
-            mContainer.addView(newView, index + 1);
-            setLeftMargin(newView.findViewById(R.id.linearLayout_container), 64);
-        });
+        mAddSubButton.setOnClickListener(view -> addSubAssessmentView(v, 64));
+    }
+
+    private void addSubAssessmentView(View parentView, int leftMargin) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View newView = inflater.inflate(R.layout.list_item_assessment_textfield, mContainer, false);
+        int parentIndex = mContainer.indexOfChild(parentView);
+        mContainer.addView(newView, parentIndex + 1);
+        setLeftMargin(newView.findViewById(R.id.linearLayout_container), leftMargin);
+        Button addSubButton = newView.findViewById(R.id.add_subAssessment_button);
+        addSubButton.setOnClickListener(view -> addSubAssessmentView(newView, leftMargin + 64));
     }
 
     public void addElement() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View newView = inflater.inflate(R.layout.list_item_assessment_textfield, mContainer, false);
-        initializeViews(newView);
         mContainer.addView(newView);
     }
 
     public void confirm(String bacYearId, UUID parentId) {
         int childCount = mContainer.getChildCount();
         String subParentId = null;
+        String subSubParentId = null;
 
         for (int i = 0; i < childCount; i++) {
             View childView = mContainer.getChildAt(i);
@@ -67,7 +70,7 @@ public class AddSubAssessmentFragment extends Fragment {
             mNoteField = childView.findViewById(R.id.maxNote_textfield);
             String name = mNameField.getText().toString();
             String note = mNoteField.getText().toString();
-            if (name.isEmpty()) {
+            if (name.isEmpty() || note.isEmpty()) {
                 Toast.makeText(getContext(), "Tous les champs doivent être remplis.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -81,23 +84,28 @@ public class AddSubAssessmentFragment extends Fragment {
             LinearLayout container = childView.findViewById(R.id.linearLayout_container);
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) container.getLayoutParams();
 
-            if (params.leftMargin > 0) {
+            if (params.leftMargin > 64) {
+                // This is a sub-sub-assessment
+                Assessment subSubAssessment = new Assessment(name, bacYearId, subSubParentId, Double.parseDouble(note), true);
+                AssessmentLab.get(getContext()).addAssessment(subSubAssessment);
+            } else if (params.leftMargin > 0) {
                 // This is a sub-assessment
-                Assessment subAssessment = new Assessment(name, bacYearId, subParentId, Double.parseDouble(note));
+                Assessment subAssessment = new Assessment(name, bacYearId, subParentId, Double.parseDouble(note), true);
                 AssessmentLab.get(getContext()).addAssessment(subAssessment);
+                subSubParentId = subAssessment.getId().toString(); // Update parentId for sub-sub-assessments
             } else {
                 // This is a main assessment
-                Assessment assessment = new Assessment(name, bacYearId, parentId.toString(), Double.parseDouble(note));
+                Assessment assessment = new Assessment(name, bacYearId, parentId.toString(), Double.parseDouble(note), true);
                 AssessmentLab.get(getContext()).addAssessment(assessment);
-                subParentId = assessment.getId().toString(); // Update parentId for the next sub-assessments
+                subParentId = assessment.getId().toString(); // Update parentId for sub-assessments
             }
         }
         getActivity().finish();
     }
 
-    private void setLeftMargin(LinearLayout layout, int leftMargin) {
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) layout.getLayoutParams();
+    private void setLeftMargin(View view, int leftMargin) {
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         params.setMargins(leftMargin, params.topMargin, params.rightMargin, params.bottomMargin);
-        layout.setLayoutParams(params);
+        view.setLayoutParams(params);
     }
 }

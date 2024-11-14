@@ -28,6 +28,7 @@ public class NoteDbSchema {
             public static final String UUID_BAC_YEAR = "idBacYear";
             public static final String PARENT_ID = "parentId";
             public static final String MAX_NOTE = "maxNote";
+            public static final String SUB_ASSESSMENT = "subAssessment";
         }
     }
 

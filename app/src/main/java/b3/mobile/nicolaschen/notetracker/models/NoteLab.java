@@ -62,8 +62,6 @@ public class NoteLab {
                 new String[]{AssessmentId, studentId}
         );
         try {
-            Log.d("NoteLab", "getNoteByStudentAndAssessment: " + cursor.getCount());
-            Log.d("NoteLab", "getNoteByStudentAndAssessment: " + AssessmentId + " " + studentId);
             if (cursor.getCount() == 0)
                 return null;
             cursor.moveToFirst();
@@ -72,5 +70,6 @@ public class NoteLab {
             cursor.close();
         }
     }
+
 
 }

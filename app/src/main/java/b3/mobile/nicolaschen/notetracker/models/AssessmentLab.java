@@ -62,36 +62,8 @@ public class AssessmentLab {
         values.put(NoteDbSchema.AssessmentTable.cols.PARENT_ID, assessment.getParentUuid());
         values.put(NoteDbSchema.AssessmentTable.cols.UUID_BAC_YEAR, assessment.getUuidBacYear());
         values.put(NoteDbSchema.AssessmentTable.cols.MAX_NOTE, assessment.getNoteMaxValue());
+        values.put(NoteDbSchema.AssessmentTable.cols.SUB_ASSESSMENT, assessment.getIsSubAssessment());
         return values;
-    }
-
-    public NoteCursorWrapper queryAssessments(String whereClause, String[] whereArgs, String orderBy) {
-        return new NoteCursorWrapper(mDatabase.query(
-                NoteDbSchema.AssessmentTable.NAME,
-                null,
-                whereClause,
-                whereArgs,
-                null,
-                null,
-                orderBy
-        ));
-    }
-
-
-    public List<Assessment> getAssessmentsByParentId(String parentId) {
-        ArrayList<Assessment> assessments = new ArrayList<>();
-        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.PARENT_ID + " = ?",
-                new String[]{parentId},NoteDbSchema.AssessmentTable.cols.NOTE_NAME + " ASC");
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                assessments.add(cursor.getAssessment());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return assessments;
     }
 
     public Assessment getAssessment(UUID assessmentId) {
@@ -107,6 +79,38 @@ public class AssessmentLab {
             cursor.close();
         }
     }
+
+    public List<Assessment> getAssessmentsByParentId(String parentId) {
+        ArrayList<Assessment> assessments = new ArrayList<>();
+        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.PARENT_ID + " = ?",
+                new String[]{parentId},null);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                assessments.add(cursor.getAssessment());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return assessments;
+    }
+    public List<Assessment> getCurrentAssessmentsByParentId(String parentId) {
+        ArrayList<Assessment> assessments = new ArrayList<>();
+        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.PARENT_ID + " = ? AND " + NoteDbSchema.AssessmentTable.cols.SUB_ASSESSMENT + " = 1",
+                new String[]{parentId},null);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                assessments.add(cursor.getAssessment());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return assessments;
+    }
+
 
     public Assessment[] getSubAssessments(String bacYear, String mParentId) {
         ArrayList<Assessment> assessments = new ArrayList<>();
@@ -125,5 +129,17 @@ public class AssessmentLab {
             cursor.close();
         }
         return assessments.toArray(new Assessment[assessments.size()]);
+    }
+
+    public NoteCursorWrapper queryAssessments(String whereClause, String[] whereArgs, String orderBy) {
+        return new NoteCursorWrapper(mDatabase.query(
+                NoteDbSchema.AssessmentTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                orderBy
+        ));
     }
 }

@@ -50,7 +50,7 @@ public class AssessmentFragment extends Fragment implements UpdatableFragment {
         mContainer.removeAllViews();
         AssessmentLab lab = AssessmentLab.get(getContext());
         for (final Assessment assessment : lab.getAssessmentsByBacYear(mBacYear.getId().toString())) {
-            if (assessment.getNoteName() != null) {
+            if (assessment.getParentUuid() == null) {
                 View assessmentView = getAssessmentView(assessment);
                 mContainer.addView(assessmentView);
             }
