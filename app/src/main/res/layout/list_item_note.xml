@@ -10,7 +10,8 @@
         android:id="@+id/matricule_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LAxxxxxx" />
+        android:text="LAxxxxxx"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/name_note_container"
@@ -24,16 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Nom"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/note_textView"
-            android:layout_width="wrap_content"
+            android:layout_width="128dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:editable="false"
             android:text=".../20"
             android:textAlignment="textEnd"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

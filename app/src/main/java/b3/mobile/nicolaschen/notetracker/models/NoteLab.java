@@ -72,4 +72,15 @@ public class NoteLab {
     }
 
 
+    public void updateNoteValue(Note note) {
+        String assessmentId = note.getAssessmentUuid();
+        String studentId = note.getStudentUuid();
+        ContentValues values = getContentValues(note);
+        mDatabase.update(NoteDbSchema.NoteTable.NAME,
+                values,
+                NoteDbSchema.NoteTable.cols.UUID_ASSESSMENT + " = ? AND " +
+                        NoteDbSchema.NoteTable.cols.UUID_STUDENT + " = ?",
+                new String[]{assessmentId, studentId}
+        );
+    }
 }

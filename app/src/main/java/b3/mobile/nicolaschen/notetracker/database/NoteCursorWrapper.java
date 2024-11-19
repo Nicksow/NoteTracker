@@ -57,6 +57,9 @@ public class NoteCursorWrapper extends CursorWrapper {
         String uuidAssessment = getString(getColumnIndex(NoteDbSchema.NoteTable.cols.UUID_ASSESSMENT));
         String uuidStudent = getString(getColumnIndex(NoteDbSchema.NoteTable.cols.UUID_STUDENT));
         Double noteValue = getDouble(getColumnIndex(NoteDbSchema.NoteTable.cols.NOTE));
+        if (isNull(getColumnIndex(NoteDbSchema.NoteTable.cols.NOTE))) {
+            noteValue = null;
+        }
         Note note = new Note(uuidAssessment, uuidStudent);
         note.setNoteValue(noteValue);
         return note;
