@@ -3,7 +3,6 @@ package b3.mobile.nicolaschen.notetracker.models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -95,22 +95,6 @@ public class AssessmentLab {
         }
         return assessments;
     }
-    public List<Assessment> getCurrentAssessmentsByParentId(String parentId) {
-        ArrayList<Assessment> assessments = new ArrayList<>();
-        NoteCursorWrapper cursor = queryAssessments(NoteDbSchema.AssessmentTable.cols.PARENT_ID + " = ? AND " + NoteDbSchema.AssessmentTable.cols.SUB_ASSESSMENT + " = 1",
-                new String[]{parentId},null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                assessments.add(cursor.getAssessment());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return assessments;
-    }
-
 
     public Assessment[] getSubAssessments(String bacYear, String mParentId) {
         ArrayList<Assessment> assessments = new ArrayList<>();
@@ -131,6 +115,23 @@ public class AssessmentLab {
         return assessments.toArray(new Assessment[assessments.size()]);
     }
 
+    public Assessment getMainAssessment(String assessmentUuid) {
+        NoteCursorWrapper cursor = queryAssessments(
+                NoteDbSchema.AssessmentTable.cols.UUID + " = ? AND " +
+                        NoteDbSchema.AssessmentTable.cols.SUB_ASSESSMENT + " = 0",
+                new String[]{assessmentUuid},
+                null
+        );
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getAssessment();
+        } finally {
+            cursor.close();
+        }
+    }
     public NoteCursorWrapper queryAssessments(String whereClause, String[] whereArgs, String orderBy) {
         return new NoteCursorWrapper(mDatabase.query(
                 NoteDbSchema.AssessmentTable.NAME,
@@ -142,4 +143,5 @@ public class AssessmentLab {
                 orderBy
         ));
     }
+
 }

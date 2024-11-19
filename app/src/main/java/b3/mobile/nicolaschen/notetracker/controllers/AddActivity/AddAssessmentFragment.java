@@ -29,24 +29,24 @@ public class AddAssessmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.list_item_student_textfield, container, false);
         mContainer = getActivity().findViewById(R.id.fragment_container);
-        mMatriculeField = v.findViewById(R.id.matricule_textfield);
-        mNameField = v.findViewById(R.id.assessmentName_textfield);
-        mFirstNameField = v.findViewById(R.id.maxNote_textfield);
-        mMatriculeField.setVisibility(View.GONE);
-        mFirstNameField.setVisibility(View.GONE);
+        initView(v);
         mContainer = getActivity().findViewById(R.id.fragment_container);
         return v;
     }
 
     public void addElement() {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View newView = inflater.inflate(R.layout.list_item_student_textfield, mContainer, false);
+        View newView = (LayoutInflater.from(getContext())).inflate(R.layout.list_item_student_textfield, mContainer, false);
+        initView(newView);
+        mContainer.addView(newView);
+    }
+
+    private void initView(View newView) {
         mMatriculeField = newView.findViewById(R.id.matricule_textfield);
         mNameField = newView.findViewById(R.id.assessmentName_textfield);
         mFirstNameField = newView.findViewById(R.id.maxNote_textfield);
+        mNameField.setHint("Nom de l'évaluation");
         mMatriculeField.setVisibility(View.GONE);
         mFirstNameField.setVisibility(View.GONE);
-        mContainer.addView(newView);
     }
 
     public void confirm(String bacYearId) {

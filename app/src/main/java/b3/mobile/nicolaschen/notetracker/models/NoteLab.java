@@ -4,9 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import java.util.List;
 
 import b3.mobile.nicolaschen.notetracker.database.NoteBaseHelper;
 import b3.mobile.nicolaschen.notetracker.database.NoteCursorWrapper;
@@ -34,26 +31,6 @@ public class NoteLab {
         mDatabase.insert(NoteDbSchema.NoteTable.NAME, null, getContentValues(note));
     }
 
-    private static ContentValues getContentValues(Note note) {
-        ContentValues values = new ContentValues();
-        values.put(NoteDbSchema.NoteTable.cols.UUID_ASSESSMENT, note.getAssessmentUuid());
-        values.put(NoteDbSchema.NoteTable.cols.UUID_STUDENT, note.getStudentUuid());
-        values.put(NoteDbSchema.NoteTable.cols.NOTE, note.getNoteValue());
-        return values;
-    }
-
-    private NoteCursorWrapper queryNotes(String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
-                NoteDbSchema.NoteTable.NAME,
-                null,
-                whereClause,
-                whereArgs,
-                null,
-                null,
-                null
-        );
-        return new NoteCursorWrapper(cursor);
-    }
 
     public Note getNoteByStudentAndAssessment(String AssessmentId, String studentId) {
         NoteCursorWrapper cursor = queryNotes(
@@ -83,4 +60,44 @@ public class NoteLab {
                 new String[]{assessmentId, studentId}
         );
     }
+
+    public Note[] getNotesByStudent(String string) {
+        NoteCursorWrapper cursor = queryNotes(
+                NoteDbSchema.NoteTable.cols.UUID_STUDENT + " = ?",
+                new String[]{string}
+        );
+        Note[] notes = new Note[cursor.getCount()];
+        try {
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                notes[i] = cursor.getNote();
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return notes;
+    }
+
+    private static ContentValues getContentValues(Note note) {
+        ContentValues values = new ContentValues();
+        values.put(NoteDbSchema.NoteTable.cols.UUID_ASSESSMENT, note.getAssessmentUuid());
+        values.put(NoteDbSchema.NoteTable.cols.UUID_STUDENT, note.getStudentUuid());
+        values.put(NoteDbSchema.NoteTable.cols.NOTE, note.getNoteValue());
+        return values;
+    }
+
+    private NoteCursorWrapper queryNotes(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                NoteDbSchema.NoteTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+        return new NoteCursorWrapper(cursor);
+    }
+
 }

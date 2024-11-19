@@ -35,12 +35,9 @@ public class BacYearActivity extends AppCompatActivity {
         mTitle = findViewById(R.id.activity_textview);
         mTitle.setText("Classes");
         mAddButton = findViewById(R.id.add_button);
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddBackYearActivity.class);
-                startActivity(intent);
-            }
+        mAddButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), AddBackYearActivity.class);
+            startActivity(intent);
         });
         updateUI();
     }
@@ -70,7 +67,6 @@ public class BacYearActivity extends AppCompatActivity {
         assessementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Buttons", "Assessment button clicked" + bacYear.getId());
                 Intent intent = new Intent(getApplicationContext(), AssessmentActivity.class);
                 intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
                 intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());
@@ -81,7 +77,6 @@ public class BacYearActivity extends AppCompatActivity {
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Buttons", "Student button clicked" + bacYear.getId());
                 Intent intent = new Intent(getApplicationContext(), StudentActivity.class);
                 intent.putExtra(ListActivity.BAC_YEAR_NAME, bacYear.getName());
                 intent.putExtra(ListActivity.BAC_YEAR_ID, bacYear.getId());

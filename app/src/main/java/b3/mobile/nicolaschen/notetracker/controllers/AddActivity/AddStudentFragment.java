@@ -31,19 +31,24 @@ public class AddStudentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.list_item_student_textfield, container, false);
         mContainer = getActivity().findViewById(R.id.fragment_container);
-        mMatriculeField = v.findViewById(R.id.matricule_textfield);
-        mNameField = v.findViewById(R.id.assessmentName_textfield);
-        mFirstNameField = v.findViewById(R.id.maxNote_textfield);
+        initView(v);
         mContainer = getActivity().findViewById(R.id.fragment_container);
         return v;
+    }
+
+    private void initView(View v) {
+        mMatriculeField = v.findViewById(R.id.matricule_textfield);
+        mMatriculeField.setHint("Matricule");
+        mNameField = v.findViewById(R.id.assessmentName_textfield);
+        mNameField.setHint("Nom");
+        mFirstNameField = v.findViewById(R.id.maxNote_textfield);
+        mFirstNameField.setHint("Prénom");
     }
 
     public void addElement() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View newView = inflater.inflate(R.layout.list_item_student_textfield, mContainer, false);
-        mMatriculeField = newView.findViewById(R.id.matricule_textfield);
-        mNameField = newView.findViewById(R.id.assessmentName_textfield);
-        mFirstNameField = newView.findViewById(R.id.maxNote_textfield);
+        initView(newView);
         mContainer.addView(newView);
     }
 

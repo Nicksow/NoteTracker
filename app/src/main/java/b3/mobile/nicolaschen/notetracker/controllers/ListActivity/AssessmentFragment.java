@@ -65,7 +65,7 @@ public class AssessmentFragment extends Fragment implements UpdatableFragment {
         nameTextView.setText(assessment.getNoteName());
         noteTextView.setVisibility(View.GONE);
         matriculeTextView.setVisibility(View.GONE);
-        setClickOnAssessmentView(assessment,columnForAssessment);
+        setClickOnAssessmentView(assessment, columnForAssessment);
         return columnForAssessment;
     }
 

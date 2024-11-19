@@ -1,5 +1,6 @@
 package b3.mobile.nicolaschen.notetracker.controllers.ListActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import b3.mobile.nicolaschen.notetracker.models.Assessment;
 import b3.mobile.nicolaschen.notetracker.models.AssessmentLab;
 import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
+import b3.mobile.nicolaschen.notetracker.utils.DisplayUtils;
 
 public class EditAssessmentFragment extends Fragment implements UpdatableFragment {
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
@@ -55,29 +57,25 @@ public class EditAssessmentFragment extends Fragment implements UpdatableFragmen
         addAssessmentViews(mParentId, 0);
     }
 
-    private void addAssessmentViews(String parentId, int leftMargin) {
+    private void addAssessmentViews(String parentId, int level) {
         AssessmentLab lab = AssessmentLab.get(getContext());
         for (Assessment assessment : lab.getSubAssessments(mBacYear.getId().toString(), parentId)) {
-            View assessmentView = getAssessmentView(assessment, leftMargin);
+            View assessmentView = getAssessmentView(assessment, level);
             mContainer.addView(assessmentView);
-            addAssessmentViews(assessment.getId().toString(), leftMargin + 64);
+            addAssessmentViews(assessment.getId().toString(), level + 1);
         }
     }
 
-    private View getAssessmentView(final Assessment assessment, int leftMargin) {
+    @SuppressLint("SetTextI18n")
+    private View getAssessmentView(final Assessment assessment, int level) {
         View assessmentView = getLayoutInflater().inflate(R.layout.list_item_note, null);
         TextView assessmentName = assessmentView.findViewById(R.id.name_textView);
         TextView assessmentNote = assessmentView.findViewById(R.id.note_textView);
         assessmentView.findViewById(R.id.matricule_textView).setVisibility(View.GONE);
         assessmentName.setText(assessment.getNoteName());
         assessmentNote.setText(assessment.getNoteMaxValue().toString());
-        setLeftMargin(assessmentView.findViewById(R.id.name_note_container), leftMargin);
+        DisplayUtils.setLeftMargin(assessmentView.findViewById(R.id.name_note_container), level);
         return assessmentView;
     }
 
-    private void setLeftMargin(LinearLayout layout, int leftMargin) {
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) layout.getLayoutParams();
-        params.setMargins(leftMargin, params.topMargin, params.rightMargin, params.bottomMargin);
-        layout.setLayoutParams(params);
-    }
 }

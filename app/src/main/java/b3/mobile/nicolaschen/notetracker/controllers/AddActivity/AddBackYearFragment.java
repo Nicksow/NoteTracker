@@ -1,6 +1,5 @@
 package b3.mobile.nicolaschen.notetracker.controllers.AddActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,24 +29,23 @@ public class AddBackYearFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.list_item_student_textfield, container, false);
         mContainer = getActivity().findViewById(R.id.fragment_container);
+        initView(v);
+        mContainer = getActivity().findViewById(R.id.fragment_container);
+        return v;
+    }
+
+    private void initView(View v) {
         mMatriculeField = v.findViewById(R.id.matricule_textfield);
         mNameField = v.findViewById(R.id.assessmentName_textfield);
         mFirstNameField = v.findViewById(R.id.maxNote_textfield);
         mNameField.setHint("Nom de l'année");
         mMatriculeField.setVisibility(View.GONE);
         mFirstNameField.setVisibility(View.GONE);
-        mContainer = getActivity().findViewById(R.id.fragment_container);
-        return v;
     }
 
     public void addElement() {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View newView = inflater.inflate(R.layout.list_item_student_textfield, mContainer, false);
-        mMatriculeField = newView.findViewById(R.id.matricule_textfield);
-        mNameField = newView.findViewById(R.id.assessmentName_textfield);
-        mFirstNameField = newView.findViewById(R.id.maxNote_textfield);
-        mMatriculeField.setVisibility(View.GONE);
-        mFirstNameField.setVisibility(View.GONE);
+        View newView = (LayoutInflater.from(getContext())).inflate(R.layout.list_item_student_textfield, mContainer, false);
+        initView(newView);
         mContainer.addView(newView);
     }
 

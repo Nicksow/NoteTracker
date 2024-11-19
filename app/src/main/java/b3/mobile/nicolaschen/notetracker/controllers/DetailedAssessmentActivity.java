@@ -1,5 +1,6 @@
 package b3.mobile.nicolaschen.notetracker.controllers;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import b3.mobile.nicolaschen.notetracker.models.Note;
 import b3.mobile.nicolaschen.notetracker.models.NoteLab;
 import b3.mobile.nicolaschen.notetracker.models.Student;
 import b3.mobile.nicolaschen.notetracker.models.StudentLab;
+import b3.mobile.nicolaschen.notetracker.utils.MathUtils;
 
 public class DetailedAssessmentActivity extends AppCompatActivity {
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
@@ -41,13 +43,12 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detailed_assessment);
-        UUID bacYear_id = (UUID) getIntent().getSerializableExtra(BAC_YEAR_ID);
-        mBacYear = BacYearLab.get(getApplicationContext()).getBacYear(bacYear_id);
-        UUID assessment_id = (UUID) getIntent().getSerializableExtra(ASSESSMENT_ID);
-        mAssessment = AssessmentLab.get(getApplicationContext()).getAssessment(assessment_id);
-        mBacYearId = mBacYear.getId().toString();
-        mAssessmentId = mAssessment.getId().toString();
-
+        initActivityData();
+        initActivityView();
+        updateUI();
+    }
+    @SuppressLint("SetTextI18n")
+    private void initActivityView() {
         mContainer = findViewById(R.id.list_container);
         mEditButton = findViewById(R.id.edit_button);
         mEditButton.setOnClickListener(view -> {
@@ -59,7 +60,15 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
         });
         mTitle = findViewById(R.id.assessmentName_textView);
         mTitle.setText(mAssessment.getNoteName() + " - " + mBacYear.getName());
-        updateUI();
+    }
+
+    private void initActivityData() {
+        UUID bacYear_id = (UUID) getIntent().getSerializableExtra(BAC_YEAR_ID);
+        mBacYear = BacYearLab.get(getApplicationContext()).getBacYear(bacYear_id);
+        UUID assessment_id = (UUID) getIntent().getSerializableExtra(ASSESSMENT_ID);
+        mAssessment = AssessmentLab.get(getApplicationContext()).getAssessment(assessment_id);
+        mBacYearId = mBacYear.getId().toString();
+        mAssessmentId = mAssessment.getId().toString();
     }
 
     @Override
@@ -71,7 +80,6 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
     private void updateUI() {
         mContainer.removeAllViews();
         List<Student> students = StudentLab.get(this.getApplicationContext()).getStudentsByBacYear(mBacYearId);
-
         for (Student student : students) {
             Note note = getOrCreateNoteForStudent(student);
             View assessmentView = getAssessmentView(note, student);
@@ -86,10 +94,10 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
         }
         Note newNote = new Note(mAssessment.getId().toString(), student.getId().toString());
         NoteLab.get(this.getApplicationContext()).addNote(newNote);
-        Log.d("test", "getOrCreateNoteForStudent: " + newNote.getAssessmentUuid()+ "for student" + student.getLastname());
         return newNote;
     }
 
+    @SuppressLint("SetTextI18n")
     private View getAssessmentView(final Note note, final Student student) {
         View columnForAssessment = getLayoutInflater().inflate(R.layout.list_item_note, null);
         TextView nameTextView = columnForAssessment.findViewById(R.id.name_textView);
@@ -97,7 +105,7 @@ public class DetailedAssessmentActivity extends AppCompatActivity {
         TextView matriculeTextView = columnForAssessment.findViewById(R.id.matricule_textView);
         nameTextView.setText(student.getLastname() +" "+ student.getFirstname());
         matriculeTextView.setText(student.getMatricule());
-        noteTextView.setText(note.getNoteValue()+"/"+mAssessment.getNoteMaxValue().intValue());
+        noteTextView.setText(MathUtils.roundToNearestHalf(note.getNoteValue()) +"/"+mAssessment.getNoteMaxValue().intValue());
         columnForAssessment.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), DetailedStudentNoteActivity.class);
             intent.putExtra(DetailedStudentNoteActivity.STUDENT_ID, student.getId());

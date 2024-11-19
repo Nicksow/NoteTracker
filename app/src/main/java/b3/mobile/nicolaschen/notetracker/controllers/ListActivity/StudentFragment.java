@@ -13,10 +13,15 @@ import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
 import b3.mobile.nicolaschen.notetracker.controllers.UpdatableFragment;
+import b3.mobile.nicolaschen.notetracker.models.Assessment;
+import b3.mobile.nicolaschen.notetracker.models.AssessmentLab;
 import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
+import b3.mobile.nicolaschen.notetracker.models.Note;
+import b3.mobile.nicolaschen.notetracker.models.NoteLab;
 import b3.mobile.nicolaschen.notetracker.models.Student;
 import b3.mobile.nicolaschen.notetracker.models.StudentLab;
+import b3.mobile.nicolaschen.notetracker.utils.MathUtils;
 
 public class StudentFragment extends Fragment implements UpdatableFragment {
     public static final String BAC_YEAR_ID = "BACYEAR_ID";
@@ -60,11 +65,27 @@ public class StudentFragment extends Fragment implements UpdatableFragment {
         TextView matriculeTextView = columnForStudent.findViewById(R.id.matricule_textView);
         nameTextView.setText(student.getLastname() + " " + student.getFirstname());
         matriculeTextView.setText(student.getMatricule());
-        noteTextView.setVisibility(View.GONE);
+        if (String.valueOf(calculateGlobalNote(student)).isEmpty()) {
+            noteTextView.setText("TDB/20");
+        } else {
+            noteTextView.setText(calculateGlobalNote(student) + "/20");
+        }
         return columnForStudent;
     }
 
-
+    private double calculateGlobalNote(Student student) {
+        NoteLab noteLab = NoteLab.get(getContext());
+        double globalNote = 0;
+        double globalMaxNote = 0;
+        for (Note note : noteLab.getNotesByStudent(student.getId().toString())) {
+            Assessment assessment = AssessmentLab.get(getContext()).getMainAssessment(note.getAssessmentUuid());
+            if (assessment != null) {
+                globalNote += note.getNoteValue();
+                globalMaxNote += assessment.getNoteMaxValue();
+            }
+        }
+        return MathUtils.roundToNearestHalf(globalNote / globalMaxNote * 20);
+    }
 
 
 }
