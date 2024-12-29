@@ -8,14 +8,14 @@ import androidx.fragment.app.FragmentManager;
 import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddAssessmentActivity;
-import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBackYearActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBacYearActivity;
 
 public class AssessmentActivity extends ListActivity {
 
     @Override
     protected void onActionButtonClick(UUID bacYearId) {
         Intent intent = new Intent(getApplicationContext(), AddAssessmentActivity.class);
-        intent.putExtra(AddBackYearActivity.BAC_YEAR_ID, bacYearId);
+        intent.putExtra(AddBacYearActivity.BAC_YEAR_ID, bacYearId);
         startActivity(intent);
         updateUI();
     }

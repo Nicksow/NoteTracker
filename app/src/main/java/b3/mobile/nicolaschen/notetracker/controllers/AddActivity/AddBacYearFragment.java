@@ -14,7 +14,7 @@ import b3.mobile.nicolaschen.notetracker.R;
 import b3.mobile.nicolaschen.notetracker.models.BacYear;
 import b3.mobile.nicolaschen.notetracker.models.BacYearLab;
 
-public class AddBackYearFragment extends Fragment {
+public class AddBacYearFragment extends Fragment {
     private LinearLayout mContainer;
     private EditText mMatriculeField;
     private EditText mNameField;

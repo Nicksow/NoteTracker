@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.UUID;
 
-import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBackYearActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBacYearActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddStudentActivity;
 
 public class StudentActivity extends ListActivity {
@@ -15,7 +15,7 @@ public class StudentActivity extends ListActivity {
     @Override
     protected void onActionButtonClick(UUID bacYearId) {
         Intent intent = new Intent(getApplicationContext(), AddStudentActivity.class);
-        intent.putExtra(AddBackYearActivity.BAC_YEAR_ID, bacYearId);
+        intent.putExtra(AddBacYearActivity.BAC_YEAR_ID, bacYearId);
         startActivity(intent);
         updateUI();
     }

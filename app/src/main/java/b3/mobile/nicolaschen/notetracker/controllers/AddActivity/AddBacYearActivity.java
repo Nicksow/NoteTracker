@@ -7,11 +7,11 @@ import java.util.UUID;
 
 import b3.mobile.nicolaschen.notetracker.R;
 
-public class AddBackYearActivity extends AddActivity {
+public class AddBacYearActivity extends AddActivity {
 
     @Override
     protected void onAddButtonClick(UUID bacYearId) {
-        AddBackYearFragment ABYFragment = (AddBackYearFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        AddBacYearFragment ABYFragment = (AddBacYearFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (ABYFragment != null) {
                 ABYFragment.addElement();
             }
@@ -19,7 +19,7 @@ public class AddBackYearActivity extends AddActivity {
 
     @Override
     protected void onConfirmButtonClick(UUID bacYearId) {
-        AddBackYearFragment ABYFragment = (AddBackYearFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        AddBacYearFragment ABYFragment = (AddBacYearFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (ABYFragment != null) {
             ABYFragment.confirm();
         }
@@ -27,6 +27,6 @@ public class AddBackYearActivity extends AddActivity {
 
     @Override
     protected Fragment getFragmentList(FragmentManager fm) {
-        return new AddBackYearFragment();
+        return new AddBacYearFragment();
     }
 }

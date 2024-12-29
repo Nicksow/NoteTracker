@@ -2,7 +2,6 @@ package b3.mobile.nicolaschen.notetracker.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,7 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import b3.mobile.nicolaschen.notetracker.R;
-import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBackYearActivity;
+import b3.mobile.nicolaschen.notetracker.controllers.AddActivity.AddBacYearActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.AssessmentActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.ListActivity;
 import b3.mobile.nicolaschen.notetracker.controllers.ListActivity.StudentActivity;
@@ -36,7 +35,7 @@ public class BacYearActivity extends AppCompatActivity {
         mTitle.setText("Classes");
         mAddButton = findViewById(R.id.add_button);
         mAddButton.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), AddBackYearActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AddBacYearActivity.class);
             startActivity(intent);
         });
         updateUI();

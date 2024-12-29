@@ -57,6 +57,8 @@ public class AddSubAssessmentFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View newView = inflater.inflate(R.layout.list_item_assessment_textfield, mContainer, false);
         mContainer.addView(newView);
+        Button addSubButton = newView.findViewById(R.id.add_subAssessment_button);
+        addSubButton.setOnClickListener(view -> addSubAssessmentView(newView, 1));
     }
 
     public void confirm(String bacYearId, UUID parentId) {
